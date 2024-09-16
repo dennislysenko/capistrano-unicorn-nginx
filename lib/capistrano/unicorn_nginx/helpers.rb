@@ -13,11 +13,11 @@ module Capistrano
       def template_to_s(template_name, locals = {})
         config_file = "#{fetch(:templates_path)}/#{template_name}"
         # if no customized file, proceed with default
-        unless File.exists?(config_file)
+        unless File.exist?(config_file)
           config_file = File.join(File.dirname(__FILE__), "../../generators/capistrano/unicorn_nginx/templates/#{template_name}")
         end
 
-        ERB.new(File.read(config_file), nil, '-').result(ERBNamespace.new(locals).get_binding)
+        ERB.new(File.read(config_file), trim_mode: '-').result(ERBNamespace.new(locals).get_binding)
       end
 
       # renders the ERB template specified by template_name to a StringIO buffer
