@@ -85,7 +85,9 @@ namespace :unicorn do
 end
 
 namespace :deploy do
-  after :publishing, 'unicorn:restart'
+  # after :publishing, 'unicorn:restart'
+  # the above was breaking deploys as upgrade kept failing. Reverting to unicorn:reload
+  after :publishing, 'unicorn:reload' 
 end
 
 desc 'Server setup tasks'
